@@ -12,4 +12,8 @@ class SongCell: UITableViewCell{
     @IBOutlet weak var songCellTitle: UILabel!
     @IBOutlet weak var songCellArtist: UILabel!
     
+    func setCell(song: Song){
+        self.songCellTitle.text = song.title
+        self.songCellArtist.text = "The Black Eyed Peas"
+    }
 }

@@ -44,7 +44,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Za2-83-mQd">
-                                <rect key="frame" x="57" y="824" width="43" height="30"/>
+                                <rect key="frame" x="49" y="620" width="43" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Songs"/>
                                 <connections>
@@ -82,21 +82,27 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Artist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="72J-kA-OoA">
-                                                    <rect key="frame" x="62" y="34" width="42" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="72J-kA-OoA">
+                                                    <rect key="frame" x="20" y="27.5" width="374" height="13.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CND-94-ks9">
+                                                    <rect key="frame" x="20" y="5" width="374" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CND-94-ks9">
-                                                    <rect key="frame" x="62" y="5" width="48" height="27"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="CND-94-ks9" firstAttribute="leading" secondItem="AqR-D8-fUq" secondAttribute="leading" constant="20" id="5Rg-6c-dM7"/>
+                                                <constraint firstAttribute="trailing" secondItem="72J-kA-OoA" secondAttribute="trailing" constant="20" id="7yw-sd-SoW"/>
+                                                <constraint firstItem="72J-kA-OoA" firstAttribute="top" secondItem="CND-94-ks9" secondAttribute="bottom" constant="2" id="Edb-Dj-bcT"/>
+                                                <constraint firstAttribute="trailing" secondItem="CND-94-ks9" secondAttribute="trailing" constant="20" id="Z8o-5L-m2Z"/>
+                                                <constraint firstItem="CND-94-ks9" firstAttribute="top" secondItem="AqR-D8-fUq" secondAttribute="top" constant="5" id="g2M-hg-SXg"/>
+                                                <constraint firstItem="72J-kA-OoA" firstAttribute="leading" secondItem="AqR-D8-fUq" secondAttribute="leading" constant="20" id="yVr-WK-U0g"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="songCellArtist" destination="72J-kA-OoA" id="Mna-qE-KG3"/>
@@ -104,6 +110,10 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="f2o-6W-yHf" id="jMt-4O-RBP"/>
+                                    <outlet property="delegate" destination="f2o-6W-yHf" id="GhR-oO-gYy"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -115,6 +125,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="YtQ-1M-iFZ"/>
+                    <connections>
+                        <outlet property="tableView" destination="lqt-Y4-6rw" id="1h7-pp-JNs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AyY-Ap-XzD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

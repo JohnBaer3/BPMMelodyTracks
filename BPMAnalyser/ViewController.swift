@@ -15,21 +15,22 @@ import UIKit
 import MediaPlayer
 import AVKit
 
-var paused = true
 var SongsArr: [Song] = []
-var currentSong: Song? = nil
-var currentSongIndex: Int? = nil
-var previousSongs: [Song] = []
-let audioPlayer = AVAudioPlayerNode()
-
 
 //FiRST PAGE ~
-struct Song {
-    var title: String = ""
-    var BPM: Float = 0
-    var played: Bool = false
-}
+//struct Song {
+//    var title: String = ""
+//    var BPM: Float = 0
+//    var played: Bool = false
+//
+//    init(title: String, BPM: Float, played: Bool) {
+//        self.title = title
+//        self.BPM = BPM
+//        self.played  = played
+//    }
+//}
 //~ FiRST PAGE
+
 
 
 let fm = FileManager.default
@@ -38,6 +39,13 @@ let songs = try! fm.contentsOfDirectory(atPath: filePath!)
 
 
 class ViewController: UIViewController {
+    var paused = true
+    var currentSong: Song? = nil
+    var currentSongIndex: Int? = nil
+    var previousSongs: [Song] = []
+    let audioPlayer = AVAudioPlayerNode()
+    
+    
     
     let engine = AVAudioEngine()
     let speedControl = AVAudioUnitVarispeed()
@@ -114,10 +122,6 @@ class ViewController: UIViewController {
     
     
     
-    
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         mediaPicker.allowsPickingMultipleItems = false
@@ -127,19 +131,15 @@ class ViewController: UIViewController {
         
         //FiRST PAGE ~
         for song in songs{
-//            let filePathSong = Bundle.main.path(forResource: removeSuffix(word: song), ofType: "mp3", inDirectory: "Songs")
-//            let songUrl = URL(string: filePathSong!)
-//            let BPMOfSong = BPMAnalyzer.core.getBpmFrom(songUrl!, completion: nil)
-            //Have to parse BPMOfSong to actually get the BPM, then convert it to Float
-            let newSong = Song(title: removeSuffix(songName: song), BPM: 100)
+            let filePathSong = Bundle.main.path(forResource: removeSuffix(songName: song), ofType: "mp3", inDirectory: "Songs")
+            let songUrl = URL(string: filePathSong!)
+            let BPMOfSongString = BPMAnalyzer.core.getBpmFrom(songUrl!, completion: nil)
+            let BPMOfSong = convertBPMToFloat(BPMOfSongString)
+            let newSong = Song(title: removeSuffix(songName: song), BPM: BPMOfSong, played: false)
             SongsArr.append(newSong)
         }
+        
         //~ FiRST PAGE
-        
-        
-        //BPMAnalyzer.core.getBpmFrom(url!, completion: nil)
-//        addLabelWith(BPMAnalyzer.core.getBpmFrom(url!, completion: nil))
-        
         
     }
     
@@ -177,6 +177,18 @@ class ViewController: UIViewController {
             }
         }
         return output
+    }
+    
+    func convertBPMToFloat(_ bpmString: String) -> Float {
+        // Really dirty way to parse the string return form BPMAnalyzer
+        // Definitely a better way to do this
+        let bpmSplitArray = bpmString.components(separatedBy: " ")
+        let splitBPMSpaces = bpmSplitArray[2]
+        let splitBPMComma = splitBPMSpaces.components(separatedBy: ",")
+        let toBeConvertedFromString = splitBPMComma[0]
+        let bpmFloat = Float(toBeConvertedFromString)
+
+        return bpmFloat!
     }
     //~ FiRST PAGE
 }

@@ -21,6 +21,7 @@
 		CB1CF30824BE516C001CF12B /* Songs in Resources */ = {isa = PBXBuildFile; fileRef = CB1CF30724BE516C001CF12B /* Songs */; };
 		CBD1318A24BFCE1E0093E655 /* SongLibraryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD1318924BFCE1E0093E655 /* SongLibraryScreen.swift */; };
 		CBD1318C24BFD13F0093E655 /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD1318B24BFD13F0093E655 /* SongCell.swift */; };
+		CBD1318E24BFE3810093E655 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD1318D24BFE3800093E655 /* Song.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		CB1CF30724BE516C001CF12B /* Songs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Songs; path = ../../../Songs; sourceTree = "<group>"; };
 		CBD1318924BFCE1E0093E655 /* SongLibraryScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongLibraryScreen.swift; sourceTree = "<group>"; };
 		CBD1318B24BFD13F0093E655 /* SongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
+		CBD1318D24BFE3800093E655 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 				BE8E08821E8BE1C200FEC80C /* src */,
 				BE8E08701E8BE1B600FEC80C /* AppDelegate.swift */,
 				BE8E08721E8BE1B600FEC80C /* ViewController.swift */,
+				CBD1318D24BFE3800093E655 /* Song.swift */,
 				CBD1318924BFCE1E0093E655 /* SongLibraryScreen.swift */,
 				CBD1318B24BFD13F0093E655 /* SongCell.swift */,
 				BE8E08741E8BE1B600FEC80C /* Main.storyboard */,
@@ -208,6 +211,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBD1318E24BFE3810093E655 /* Song.swift in Sources */,
 				CBD1318A24BFCE1E0093E655 /* SongLibraryScreen.swift in Sources */,
 				BE8E088E1E8BE21400FEC80C /* Superpowered.mm in Sources */,
 				BE8E08911E8BE21900FEC80C /* BMPAnalyzer.swift in Sources */,
