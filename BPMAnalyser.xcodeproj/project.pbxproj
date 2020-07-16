@@ -18,10 +18,9 @@
 		BE8E08961E8BE22900FEC80C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE8E08951E8BE22900FEC80C /* AVFoundation.framework */; };
 		BE8E08981E8BE22E00FEC80C /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE8E08971E8BE22E00FEC80C /* CoreMedia.framework */; };
 		BE8E089A1E8BE23B00FEC80C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE8E08991E8BE23B00FEC80C /* AudioToolbox.framework */; };
-		BE8E089C1E8BE2BF00FEC80C /* TestMusic.m4a in Resources */ = {isa = PBXBuildFile; fileRef = BE8E089B1E8BE2BF00FEC80C /* TestMusic.m4a */; };
-		CB94B0FC24B9309F0000CBC6 /* Delilah.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CB94B0FB24B9309E0000CBC6 /* Delilah.mp3 */; };
-		CB94B0FE24B930F90000CBC6 /* BadBlood.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CB94B0FD24B930F90000CBC6 /* BadBlood.mp3 */; };
-		CB94B10024B931870000CBC6 /* Misery.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CB94B0FF24B931870000CBC6 /* Misery.mp3 */; };
+		CB1CF30824BE516C001CF12B /* Songs in Resources */ = {isa = PBXBuildFile; fileRef = CB1CF30724BE516C001CF12B /* Songs */; };
+		CBD1318A24BFCE1E0093E655 /* SongLibraryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD1318924BFCE1E0093E655 /* SongLibraryScreen.swift */; };
+		CBD1318C24BFD13F0093E655 /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD1318B24BFD13F0093E655 /* SongCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,10 +43,9 @@
 		BE8E08951E8BE22900FEC80C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		BE8E08971E8BE22E00FEC80C /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		BE8E08991E8BE23B00FEC80C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		BE8E089B1E8BE2BF00FEC80C /* TestMusic.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = TestMusic.m4a; sourceTree = "<group>"; };
-		CB94B0FB24B9309E0000CBC6 /* Delilah.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Delilah.mp3; path = ../../../Downloads/Delilah.mp3; sourceTree = "<group>"; };
-		CB94B0FD24B930F90000CBC6 /* BadBlood.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = BadBlood.mp3; path = ../../../Downloads/BadBlood.mp3; sourceTree = "<group>"; };
-		CB94B0FF24B931870000CBC6 /* Misery.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Misery.mp3; path = ../../../Downloads/Misery.mp3; sourceTree = "<group>"; };
+		CB1CF30724BE516C001CF12B /* Songs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Songs; path = ../../../Songs; sourceTree = "<group>"; };
+		CBD1318924BFCE1E0093E655 /* SongLibraryScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongLibraryScreen.swift; sourceTree = "<group>"; };
+		CBD1318B24BFD13F0093E655 /* SongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,15 +86,14 @@
 				BE8E08821E8BE1C200FEC80C /* src */,
 				BE8E08701E8BE1B600FEC80C /* AppDelegate.swift */,
 				BE8E08721E8BE1B600FEC80C /* ViewController.swift */,
+				CBD1318924BFCE1E0093E655 /* SongLibraryScreen.swift */,
+				CBD1318B24BFD13F0093E655 /* SongCell.swift */,
 				BE8E08741E8BE1B600FEC80C /* Main.storyboard */,
 				BE8E08771E8BE1B600FEC80C /* Assets.xcassets */,
 				BE8E08791E8BE1B600FEC80C /* LaunchScreen.storyboard */,
 				BE8E087C1E8BE1B600FEC80C /* Info.plist */,
 				BE8E08831E8BE1DE00FEC80C /* BPMAnalyser-Bridging-Header.h */,
-				CB94B0FD24B930F90000CBC6 /* BadBlood.mp3 */,
-				CB94B0FF24B931870000CBC6 /* Misery.mp3 */,
-				CB94B0FB24B9309E0000CBC6 /* Delilah.mp3 */,
-				BE8E089B1E8BE2BF00FEC80C /* TestMusic.m4a */,
+				CB1CF30724BE516C001CF12B /* Songs */,
 			);
 			path = BPMAnalyser;
 			sourceTree = "<group>";
@@ -197,12 +194,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB94B0FE24B930F90000CBC6 /* BadBlood.mp3 in Resources */,
 				BE8E087B1E8BE1B600FEC80C /* LaunchScreen.storyboard in Resources */,
-				CB94B10024B931870000CBC6 /* Misery.mp3 in Resources */,
 				BE8E08781E8BE1B600FEC80C /* Assets.xcassets in Resources */,
-				BE8E089C1E8BE2BF00FEC80C /* TestMusic.m4a in Resources */,
-				CB94B0FC24B9309F0000CBC6 /* Delilah.mp3 in Resources */,
+				CB1CF30824BE516C001CF12B /* Songs in Resources */,
 				BE8E08761E8BE1B600FEC80C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -214,9 +208,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBD1318A24BFCE1E0093E655 /* SongLibraryScreen.swift in Sources */,
 				BE8E088E1E8BE21400FEC80C /* Superpowered.mm in Sources */,
 				BE8E08911E8BE21900FEC80C /* BMPAnalyzer.swift in Sources */,
 				BE8E08731E8BE1B600FEC80C /* ViewController.swift in Sources */,
+				CBD1318C24BFD13F0093E655 /* SongCell.swift in Sources */,
 				BE8E08711E8BE1B600FEC80C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,55 +7,190 @@
 //  Copyright © 2017 Gleb Karpushkin. All rights reserved.
 //
 
+
+
+//Have to get the parsing function from Michael to get the song's actual BPMs
+
 import UIKit
 import MediaPlayer
+import AVKit
+
+var paused = true
+var SongsArr: [Song] = []
+var currentSong: Song? = nil
+var currentSongIndex: Int? = nil
+var previousSongs: [Song] = []
+let audioPlayer = AVAudioPlayerNode()
+
+
+//FiRST PAGE ~
+struct Song {
+    var title: String = ""
+    var BPM: Float = 0
+    var played: Bool = false
+}
+//~ FiRST PAGE
+
+
+let fm = FileManager.default
+let filePath = Bundle.main.path(forAuxiliaryExecutable: "Songs")
+let songs = try! fm.contentsOfDirectory(atPath: filePath!)
+
 
 class ViewController: UIViewController {
     
+    let engine = AVAudioEngine()
+    let speedControl = AVAudioUnitVarispeed()
+    let pitchControl = AVAudioUnitTimePitch()
+
+    let engineBPM = AVAudioEngine()
+    let speedControlBPM = AVAudioUnitVarispeed()
+    let pitchControlBPM = AVAudioUnitTimePitch()
+    
+    var speedOfBPM:Float = 0.0
+    
+    
     let mediaPicker: MPMediaPickerController = MPMediaPickerController(mediaTypes: .music)
-    lazy var bpmLabel: UILabel = {
-        let label = UILabel()
-        label.frame.size.height = 300
-        label.frame.size.width = UIScreen.main.bounds.width - 32
-        label.numberOfLines = 2
-        return label
-    }()
+    
+    @IBAction func playPauseClicked(_ sender: Any) {
+        paused = !paused
+        
+        if !paused{
+            if currentSong == nil{
+                //find a song to play, currently just the first song in the BPMArr
+                currentSong = SongsArr[0]
+                currentSongIndex = 0
+                SongsArr[0].played = true
+                let filePathSong = Bundle.main.path(forResource: removeSuffix(songName: currentSong!.title), ofType: "mp3", inDirectory: "Songs")
+                let songUrl = URL(string: filePathSong!)
+//                let BPMOfSong = BPMAnalyzer.core.getBpmFrom(songUrl!, completion: nil)
+                do { try play(songUrl!)
+                }catch{}
+            }else{
+                audioPlayer.play()
+            }
+        }else{
+            audioPlayer.pause()
+        }
+    }
+    
+    @IBAction func nextClicked(_ sender: Any) {
+        previousSongs.append(currentSong!)
+        //No more songs!
+        if currentSongIndex == SongsArr.count-1{
+            for i in 0...SongsArr.count-1{
+                SongsArr[i].played = false
+            }
+            currentSong = SongsArr[0]
+            currentSongIndex = 0
+        }else{
+            currentSongIndex! += 1
+            currentSong = SongsArr[currentSongIndex!]
+            let filePathSong = Bundle.main.path(forResource: removeSuffix(songName: currentSong!.title), ofType: "mp3", inDirectory: "Songs")
+            let songUrl = URL(string: filePathSong!)
+//                let BPMOfSong = BPMAnalyzer.core.getBpmFrom(songUrl!, completion: nil)
+            do { try play(songUrl!)
+            }catch{}
+        }
+    }
+    
+    @IBAction func prevClicked(_ sender: Any) {
+        if previousSongs.count == 0{
+            currentSongIndex! = 0
+            currentSong = SongsArr[currentSongIndex!]
+        }else{
+            currentSongIndex! -= 1
+            currentSong = previousSongs.popLast()
+        }
+        let filePathSong = Bundle.main.path(forResource: removeSuffix(songName: currentSong!.title), ofType: "mp3", inDirectory: "Songs")
+        let songUrl = URL(string: filePathSong!)
+//                let BPMOfSong = BPMAnalyzer.core.getBpmFrom(songUrl!, completion: nil)
+        do { try play(songUrl!)
+        }catch{}
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         mediaPicker.allowsPickingMultipleItems = false
         mediaPicker.delegate = self
         present(mediaPicker, animated: true, completion: nil)
-        // Do any additional setup after loading the view, typically from a nib.
         
-
-        let filePath = Bundle.main.path(forResource: "Delilah", ofType: "mp3")
-        let url = URL(string: filePath!)
         
-        addLabelWith(BPMAnalyzer.core.getBpmFrom(url!, completion: nil))
+        //FiRST PAGE ~
+        for song in songs{
+//            let filePathSong = Bundle.main.path(forResource: removeSuffix(word: song), ofType: "mp3", inDirectory: "Songs")
+//            let songUrl = URL(string: filePathSong!)
+//            let BPMOfSong = BPMAnalyzer.core.getBpmFrom(songUrl!, completion: nil)
+            //Have to parse BPMOfSong to actually get the BPM, then convert it to Float
+            let newSong = Song(title: removeSuffix(songName: song), BPM: 100)
+            SongsArr.append(newSong)
+        }
+        //~ FiRST PAGE
+        
+        
+        //BPMAnalyzer.core.getBpmFrom(url!, completion: nil)
+//        addLabelWith(BPMAnalyzer.core.getBpmFrom(url!, completion: nil))
+        
+        
     }
+    
+    func play(_ url: URL) throws {
+        // 1: load the file
+        let file = try AVAudioFile(forReading: url)
+
+        // 3: connect the components to our playback engine
+        engine.attach(audioPlayer)
+        engine.attach(pitchControl)
+        engine.attach(speedControl)
+        
+        // 4: arrange the parts so that output from one is input to another
+        engine.connect(audioPlayer, to: speedControl, format: nil)
+        engine.connect(speedControl, to: pitchControl, format: nil)
+        engine.connect(pitchControl, to: engine.mainMixerNode, format: nil)
+
+        // 5: prepare the player to play its file from the beginning
+        audioPlayer.scheduleFile(file, at: nil)
+        
+        // 6: start the engine and player
+        try engine.start()
+        audioPlayer.play()
+    }
+    
+    
+    //FiRST PAGE ~
+    func removeSuffix(songName: String) -> String{
+        var output = ""
+        for letter in songName{
+            if letter != "."{
+                output += String(letter)
+            }else{
+                break
+            }
+        }
+        return output
+    }
+    //~ FiRST PAGE
 }
 
 
 
 extension ViewController: MPMediaPickerControllerDelegate {
-
     func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems
         mediaItemCollection: MPMediaItemCollection) {
         guard let asset = mediaItemCollection.items.first,
             let url = asset.assetURL else {return}
         _ = BPMAnalyzer.core.getBpmFrom(url, completion: {[weak self] (bpm) in
-            self?.addLabelWith(bpm)
             self?.mediaPicker.dismiss(animated: true, completion: nil)
         })
-    }
-    
-    func addLabelWith(_ bpm: String) {
-        print(bpm)
-        bpmLabel.text = String(describing:bpm)
-        view.addSubview(bpmLabel)
-        bpmLabel.center = view.center
-        view.layoutIfNeeded()
     }
 }
 
